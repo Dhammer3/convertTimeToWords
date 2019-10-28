@@ -1,23 +1,5 @@
 //This function takes in a time as  intgers and converts it into a time in words.
 function convertTimeToWords(hours, minutes){
-    /*
-    This problem can be broken up into three parts.
-    For example:
-    Given: (8,1) => Expected: "[one-minute] [past] [eight]”
-    Given: (8,15) => Expected: “[quarter] [past] [eight]”
-    Given: (8,46) => Expected: “[fourteen minutes] [to] [nine]”
-
-    All of which take the form: [Minute(s) Converted] [to/past/clock] [hour converted]
-    where minutes can be: singular or plural, quarter, half, or the actual text representation of the number.
-
-    Special case:
-    Given:(8,0) => Expected: “eight o’ clock”
-    which will take the form [hours] [minutes] [clock]
-
-    I will use two strings to convert the minutes and hours, and an array that will index occordingly.
-    Next, I use 3 if statments to get the correct hour and a switch statment to get the rest.
-    the specialCaseFlag will determine if the output needs to be reversed in the case of "[hour] o' clock"
-     */
 
     //vars for each respective placeholder
     var minStr='';
