@@ -1,31 +1,49 @@
-//This function takes in a time as  intgers and converts it into a time in words.
+
+/*
+This function validates the input. 
+Ensures @param hours and @param minutes are of the correct type and within bounds.
+*/
+var specialCaseFlagGlobal=false;
+
 function inputValid(hours, minutes)
 {
-    if (hours > 12 || hours < 1 || minutes > 60 || minutes < 1) return false;
+    if ((hours > 12 || hours < 1 || minutes > 60 || minutes < 1)||(typeof hours !== 'number'|| typeof minutes !== 'number'))  return false;
     return true;
 }
 
 function getHourStr(hours, minutes)
 {
-    hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", "eleven","twelve"]
-     //get the correct hour string
-    //round to 1
-    if( minutes > 30 && hours == 12)
-    {
-        hourStr=hourArr[1]
-    }
-    //round up
-    else if ( minutes > 30 && hours != 12)
-    {
-        hourStr=hourArr[hours+1];
-    }
-    //remain the same
-    else
-    {
-        hourStr=hourArr[hours]
-    }
-    return hourStr
+    hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven","twelve"];
+    hourStr='';
+    if (minutes < 30) hourStr = hourArr[hours];
+    else if (hours == 12) hourStr = hourArr[1];
+    else hourStr=hourArr[hours+1];
+    return hourStr;
+}
 
+function specialCaseTest(minutes)
+{
+    flag = false;
+    minute === 0 ? flag = true;
+    return flag;
+}
+
+function getMinutesStr(minutes)
+{
+    minStr=''
+    var minArr=[
+        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", 
+        "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
+        "twenty one", "twenty two","twenty three", "twenty four", "twenty five", "twenty six", "twenty seven", "twenty eight", "twenty nine",
+    ];
+    if( minutes%15==0)
+    {
+        minutes === 0 ? minStr = 'o\' clock':
+        minutes === 15 ? minStr = 'quarter past'
+        minutes === 30 ? minStr = 'half past'
+        minutes === 45 ? minStr = 'quarter to'
+
+    }  
 }
 
 function convertTimeToWords(hours, minutes){
@@ -33,13 +51,9 @@ function convertTimeToWords(hours, minutes){
     //vars for each respective placeholder
     var minStr='';
     var hourStr='';
-    var specialCaseFlag=false;
+    specialCaseFlagGlobal=specialCaseTest(mintues);
     //this array will help to convert to the correct time, which is indexed according to the minute.
-    var numConv=[
-        "o'", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-        "ten", "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
-        "half", "quarter", "minute", "minutes"
-    ];
+    
 
     //convert the minutes to a seperate indexed array to aide in conversion
     //when minutes < 30.
@@ -48,10 +62,6 @@ function convertTimeToWords(hours, minutes){
     //forwarded time is used when minutes > 30.
     var forwardedTime=60-minutes;
     var forwardedTimeIndexed=Array.from(String(forwardedTime), Number);
-
-    //ensuring that the input is of the correct var type, may not be necessary but just in case.
-    hours=parseInt(hours, 10);
-    minutes=parseInt(minutes, 10);
 
     //Basic Error handling
     if  (!inputValid(hours, minutes))  return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
@@ -62,12 +72,12 @@ function convertTimeToWords(hours, minutes){
     switch (true) {
         //special case
         // "[hour] o' clock"
-        case (minutes==0):
+        case (minutes == 0):
             minStr=`o\' clock`;
             specialCaseFlag=true;
             break;
         //"one-minute past eight"
-        case (minutes==1):
+        case (minutes == 1):
             minStr=`${numConv[minutes]}`+ ` minute past`;
             break;
         case (minutes == 15):
@@ -104,7 +114,7 @@ function convertTimeToWords(hours, minutes){
             break;
     }
 
-    if(specialCaseFlag)
+    if(specialCaseFlagGlobal)
     {
         return hourStr+" "+ minStr;
     }
