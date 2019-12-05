@@ -1,4 +1,33 @@
 //This function takes in a time as  intgers and converts it into a time in words.
+function inputValid(hours, minutes)
+{
+    if (hours > 12 || hours < 1 || minutes > 60 || minutes < 1) return false;
+    return true;
+}
+
+function getHourStr(hours, minutes)
+{
+    hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", "eleven","twelve"]
+     //get the correct hour string
+    //round to 1
+    if( minutes > 30 && hours == 12)
+    {
+        hourStr=hourArr[1]
+    }
+    //round up
+    else if ( minutes > 30 && hours != 12)
+    {
+        hourStr=hourArr[hours+1];
+    }
+    //remain the same
+    else
+    {
+        hourStr=hourArr[hours]
+    }
+    return hourStr
+
+}
+
 function convertTimeToWords(hours, minutes){
 
     //vars for each respective placeholder
@@ -11,6 +40,7 @@ function convertTimeToWords(hours, minutes){
         "ten", "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
         "half", "quarter", "minute", "minutes"
     ];
+
     //convert the minutes to a seperate indexed array to aide in conversion
     //when minutes < 30.
     var indexedMinutes=Array.from(String(minutes), Number);
@@ -24,27 +54,9 @@ function convertTimeToWords(hours, minutes){
     minutes=parseInt(minutes, 10);
 
     //Basic Error handling
-    if(hours>12 || hours<1 || minutes>59||minutes<0 )
-    {
-        return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
-    }
+    if  (!inputValid(hours, minutes))  return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
 
-    //get the correct hour string
-    //round to 1
-    if( minutes > 30 && hours==12)
-    {
-        hourStr=numConv[1]
-    }
-    //round up
-    else if ( minutes > 30 && hours != 12)
-    {
-        hourStr=numConv[hours+1];
-    }
-    //remain the same
-    else
-    {
-        hourStr=numConv[hours]
-    }
+   
 
     //get the correct minutes string. catch the special cases first.
     switch (true) {
@@ -98,6 +110,7 @@ function convertTimeToWords(hours, minutes){
     }
     return minStr+" "+ hourStr;
 }
+
 //test cases
 passedCounter=0
 if(convertTimeToWords(5,47)=="thirteen minutes to six")
