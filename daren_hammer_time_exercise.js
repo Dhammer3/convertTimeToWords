@@ -2,7 +2,7 @@ var minArr=["",
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", 
     "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
     "twenty one", "twenty two","twenty three", "twenty four", "twenty five", "twenty six", "twenty seven", "twenty eight", "twenty nine",
-];
+]
 function inputValid(hours, minutes){
     return !((hours > 12 || hours < 1 || minutes > 60 || minutes < 0)||(typeof hours !== 'number'|| typeof minutes !== 'number'))? false : true
 }
