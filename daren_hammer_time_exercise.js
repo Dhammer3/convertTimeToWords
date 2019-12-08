@@ -18,9 +18,7 @@ function specialCaseTest(minutes){
     return (minutes===0)
 }
 function singularOrPlural(minutes){
-    if (minutes%15 === 0) return ""
-    else if (minutes === 1 || minutes === 59) return 'minute'
-    else return 'minutes'
+    return (minutes === 1 || minutes === 59) ? 'minute': 'minutes'
 }
 function toPast(minutes){
     return (minutes >30) ? 'to':'past'
