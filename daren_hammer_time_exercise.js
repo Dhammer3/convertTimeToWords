@@ -30,8 +30,8 @@ function getMinutesStr(minutes){
 }
 function convertTimeToWords(hours, minutes){
     if  (!inputValid(hours, minutes))  return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
-    specialCaseFlagGlobal=specialCaseTest(minutes);
-    if(specialCaseFlagGlobal) return getHourStr(hours, minutes) +" o' clock"
+    specialCaseFlag=specialCaseTest(minutes);
+    if(specialCaseFlag) return getHourStr(hours, minutes) +" o' clock"
     return (minutes%15==0) ? getMinutesStr(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes):
     getMinutesStr(minutes)+" "+singularOrPlural(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
 }
