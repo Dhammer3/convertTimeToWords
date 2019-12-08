@@ -8,7 +8,6 @@ function inputValid(hours, minutes){
 }
 function getHourStr(hours, minutes){
     hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven","twelve"]
-    hourStr=''
     if (minutes <= 30) hourStr = hourArr[hours]
     else if (hours == 12) hourStr = hourArr[1]
     else hourStr=hourArr[hours+1]
