@@ -1,14 +1,14 @@
-var specialCaseFlagGlobal=false;
 var minArr=["",
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", 
     "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
     "twenty one", "twenty two","twenty three", "twenty four", "twenty five", "twenty six", "twenty seven", "twenty eight", "twenty nine",
 ];
+hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven","twelve"]
+
 function inputValid(hours, minutes){
     return ((hours > 12 || hours < 1 || minutes > 60 || minutes < 0)||(typeof hours !== 'number'|| typeof minutes !== 'number')) ? false : true
 }
 function getHourStr(hours, minutes){
-    hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven","twelve"]
     if (minutes <= 30) hourStr = hourArr[hours]
     else if (hours == 12) hourStr = hourArr[1]
     else hourStr=hourArr[hours+1]
@@ -18,8 +18,7 @@ function specialCaseTest(minutes){
     return (minutes===0)
 }
 function singularOrPlural(minutes){
-    if (minutes === 1 || minutes === 59) return 'minute'
-    else return 'minutes'
+    return (minutes === 1 || minutes === 59) ? 'minute': 'minutes'
 }
 function toPast(minutes){
     return (minutes >30) ? 'to':'past'
