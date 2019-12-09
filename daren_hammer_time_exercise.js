@@ -1,13 +1,16 @@
+var specialCaseFlagGlobal=false;
 var minArr=["",
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine","ten", 
     "eleven","twelve","thirteen", "fourteen", "fifteen","sixteen", "seventeen","eighteen", "nineteen","twenty",
     "twenty one", "twenty two","twenty three", "twenty four", "twenty five", "twenty six", "twenty seven", "twenty eight", "twenty nine",
-]
+];
 function inputValid(hours, minutes){
-    return !((hours > 12 || hours < 1 || minutes > 60 || minutes < 0)||(typeof hours !== 'number'|| typeof minutes !== 'number'))? false : true
+    if ((hours > 12 || hours < 1 || minutes > 60 || minutes < 0)||(typeof hours !== 'number'|| typeof minutes !== 'number'))  return false;
+    return true
 }
 function getHourStr(hours, minutes){
     hourArr=["","one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven","twelve"]
+    hourStr=''
     if (minutes <= 30) hourStr = hourArr[hours]
     else if (hours == 12) hourStr = hourArr[1]
     else hourStr=hourArr[hours+1]
@@ -17,7 +20,9 @@ function specialCaseTest(minutes){
     return (minutes===0)
 }
 function singularOrPlural(minutes){
-    return (minutes === 1 || minutes === 59) ? 'minute': 'minutes'
+    if (minutes%15 === 0) return ""
+    else if (minutes === 1 || minutes === 59) return 'minute'
+    else return 'minutes'
 }
 function toPast(minutes){
     return (minutes >30) ? 'to':'past'
@@ -29,10 +34,12 @@ function getMinutesStr(minutes){
 }
 function convertTimeToWords(hours, minutes){
     if  (!inputValid(hours, minutes))  return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
-    if (specialCaseTest(minutes)) return getHourStr(hours, minutes) +" o' clock"
-    return (minutes%15==0) ? getMinutesStr(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes):
-    getMinutesStr(minutes)+" "+singularOrPlural(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
+    specialCaseFlagGlobal=specialCaseTest(minutes);
+    if(specialCaseFlagGlobal) return getHourStr(hours, minutes) +" o' clock"
+    if(minutes%15==0) return   getMinutesStr(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
+    return getMinutesStr(minutes)+" "+singularOrPlural(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
 }
+
 //test cases
 var passedCounter=0
 if(convertTimeToWords(5,47) == "thirteen minutes to six")
