@@ -31,15 +31,14 @@ function getMinutesStr(minutes){
 function convertTimeToWords(hours, minutes){
     if  (!inputValid(hours, minutes))  return (`\n Unable to convert the time given: Hour ${hours} `+` Minutes: ${minutes}`);
     if(specialCaseTest(minutes)) return getHourStr(hours, minutes) +" o' clock"
-    if(minutes%15==0) return   getMinutesStr(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
-    return getMinutesStr(minutes)+" "+singularOrPlural(minutes)+" "+toPast(minutes)+" "+getHourStr(hours, minutes)
+    if(minutes%15==0) return   (`${getMinutesStr(minutes)}`+` ${toPast(minutes)}`+` ${getHourStr(hours, minutes)}`)
+    return (`${getMinutesStr(minutes)}`+` ${singularOrPlural(minutes)}`+` ${toPast(minutes)}`+` ${getHourStr(hours, minutes)}`)
 }
 
 //test cases
 var passedCounter=0
 if(convertTimeToWords(5,47) == "thirteen minutes to six")
 {
- 
     passedCounter+=1;
 }
 else{
